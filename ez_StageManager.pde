@@ -1,5 +1,5 @@
 /**
- Stage game manager for ezGameLib
+ Stage game manager for ezLib
   version 0.19.04
  */
 

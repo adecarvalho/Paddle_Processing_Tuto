@@ -5,6 +5,7 @@ import java.util.*;
 ez_StageManager gStageManager=null;
 ez_InputManager gInputManager=null;
 
+
 float time=0;
 float now=0;
 float ex=0;
@@ -19,6 +20,8 @@ void setup() {
   gStageManager.addStage(new GameStage());
   
   gInputManager= new ez_InputManager();
+  
+  
 }
 
 //

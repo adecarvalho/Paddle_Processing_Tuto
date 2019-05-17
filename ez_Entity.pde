@@ -30,27 +30,19 @@ class ez_RecBounds {
   //
   boolean collide(ez_RecBounds target)
   {
-    //cas B
-    if (this.xp > target.xp && this.xp < (target.xp + target.width) &&
-      this.yp > target.yp && this.yp < (target.yp + target.height))
+    //test AABB colision
+    
+    if ((target.xp >= this.xp+this.width) 
+      || (target.xp+target.width <= this.xp)
+      ||(target.yp >= this.yp+this.height)
+      ||(target.yp+target.height <= this.yp)
+      )
+      return false;
+    else
+    {
       return true;
+    }
 
-    //cas A
-    if ((this.xp + this.width) > target.xp && (this.xp + this.width) < (target.xp + target.width)
-      && this.yp > target.yp && this.yp < (target.yp + target.height))
-      return true;
-
-    //cas C
-    if (this.xp > target.xp && this.xp < (target.xp + target.width) && (this.yp + this.height) > target.yp &&
-      (this.yp + this.height) < (target.yp + target.height))
-      return true;
-
-    //cas D
-    if ((this.xp + this.width) > target.xp && (this.xp + this.width) < (target.xp + target.width) 
-      && (this.yp + this.height) > target.yp && (this.yp + this.height) < (target.yp + target.height))
-      return true;
-    //
-    return false;
   }
 
   //

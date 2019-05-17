@@ -9,9 +9,18 @@ class GameStage extends ez_Stage {
 
   private Matrice matrice=null;
 
+  private int score;
+  private int lives;
+
+  private ez_Label labelPoint=null;
+  private ez_Label labelLive=null;
+
 
   GameStage() {
     super();
+    score=0;
+    lives=3;
+
     bkg= new Background();
 
     paddle= new Paddle(width/2, height-50, 300);
@@ -19,6 +28,14 @@ class GameStage extends ez_Stage {
     ball= new Ball(paddle);
 
     matrice= new Matrice();
+
+    labelPoint= new ez_Label("fonts/brick.ttf", 30);
+    labelPoint.setColorText(color(255, 161, 31));
+    labelPoint.setText("Points= "+score);
+
+    labelLive= new ez_Label("fonts/brick.ttf", 30);
+    labelLive.setColorText(color(255,161, 31));
+    labelLive.setText("Lives= "+lives);
   }
 
   void input() {
@@ -44,6 +61,12 @@ class GameStage extends ez_Stage {
     }
   }
 
+  void setScore() {
+    labelPoint.setText("Points= "+score);
+    labelLive.setText("Lives= "+lives);
+  }
+
+  //
   void update(float dt) {
 
     input();
@@ -56,6 +79,7 @@ class GameStage extends ez_Stage {
     if (ball.getState()==Ball.BALL_STATE_LOST)
     {
       ball.setState(Ball.BALL_STATE_LOCKED);
+      lives--;
     }
 
     //ball collide paddle
@@ -68,6 +92,7 @@ class GameStage extends ez_Stage {
     {
       ball.removeX();
       ball.removeY();
+      score++;
     }
 
     //
@@ -75,6 +100,9 @@ class GameStage extends ez_Stage {
     {
       ball.setState(Ball.BALL_STATE_LOCKED);
     }
+
+    //
+    setScore();
   }
 
 
@@ -84,9 +112,13 @@ class GameStage extends ez_Stage {
     paddle.render();
 
     ball.render();
-    
+
     matrice.render();
+
+
+    labelPoint.render(20, 20);
     
+    labelLive.render(width-200,20);
   }
 
   void onEnter(StringDict message) {

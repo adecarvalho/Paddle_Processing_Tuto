@@ -36,7 +36,7 @@ void draw() {
 
   if (time >1.0f)
   {
-    println("fps= "+fps+ " dt= "+dt);
+    //println("fps= "+fps+ " dt= "+dt);
     fps=0;
     time=0;
   }
@@ -52,7 +52,7 @@ void draw() {
 
 //
 void keyPressed() {
-  println("keycode= "+keyCode);
+  //println("keycode= "+keyCode);
   gInputManager.setKeyboardPressed(keyCode);
 }
 

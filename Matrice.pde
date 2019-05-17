@@ -64,15 +64,14 @@ class Matrice {
         {
           if (item.isCollide(ball))
           {
-            item.setState(Bloc.BLOC_STATE_TOUCHED);
+            //item.setState(Bloc.BLOC_STATE_TOUCHED);//<-----
+            item.touched();
             nbBlocs--;
             return true;
           }
         }
       }
     }
-
-
     return false;
   }
 
@@ -80,8 +79,8 @@ class Matrice {
   boolean isAllDestroy() {
     if (nbBlocs==0)
     {
+      nbBlocs=NB_COL*NB_ROW;//maj avant newWave <-----
       newWave();
-      nbBlocs=NB_COL*NB_ROW;
       return true;
     }
     return false;

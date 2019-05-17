@@ -52,6 +52,8 @@ class Bloc extends ez_Entity {
     if(getState()==Bloc.BLOC_STATE_VISIBLE)
     {
       super.render();
+      
+      super.renderDebug();
     }
   }
 }

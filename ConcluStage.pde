@@ -6,10 +6,15 @@ class ConcluStage extends ez_Stage {
   private ez_Label labelPoint=null;
   private ez_Label labelEnter=null;
   private ez_Label labelExit=null;
+  
+  //music
+  private AudioPlayer concluMusic=null;
 
 
   ConcluStage() {
     super();
+    concluMusic= gMinim.loadFile("musics/menu.mp3");
+    
     bkg= new Background(true);
 
     labelPoint=new ez_Label("fonts/free.ttf", 30);
@@ -50,10 +55,19 @@ class ConcluStage extends ez_Stage {
 
       labelPoint.setText("Points= "+points);
     }
+    //
+    if(concluMusic!= null)
+    {
+      concluMusic.loop();
+    }
   }
 
 
   //
   void onExit() {
+     if(concluMusic!= null)
+    {
+      concluMusic.close();
+    }
   }
 }

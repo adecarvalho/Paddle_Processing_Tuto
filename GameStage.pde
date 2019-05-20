@@ -15,9 +15,20 @@ class GameStage extends ez_Stage {
   private ez_Label labelPoints=null;
   private ez_Label labelLives=null;
 
+  //music
+  private AudioPlayer gameMusic=null;
+
+  //sounds
+  private AudioSample spawn=null;
+  private AudioSample explosion=null;
+  private AudioSample bump=null;
+
+
   //
   GameStage() {
     super();
+
+    gameMusic= gMinim.loadFile("musics/song.mp3");
 
     bkg= new Background(false);
 
@@ -38,6 +49,11 @@ class GameStage extends ez_Stage {
     labelLives= new ez_Label("fonts/brick.ttf", 30);
     labelLives.setColorText(color(255, 161, 31));
     labelLives.setText("Lives= "+lives);
+
+    //
+    spawn=gMinim.loadSample("sounds/spawn.wav", 512);
+    explosion= gMinim.loadSample("sounds/explosion.wav",512);
+    bump= gMinim.loadSample("sounds/bump.wav",512);
   }
 
   void input() {
@@ -77,11 +93,13 @@ class GameStage extends ez_Stage {
     {
       ball.setState(Ball.BALL_STATE_LOCKED);
       lives--;
+      spawn.trigger();
     }
 
     //ball collide paddle
     if (ball.isCollidePaddle())
     {
+      bump.trigger();
     }
 
     //bloc and ball
@@ -90,25 +108,27 @@ class GameStage extends ez_Stage {
       ball.removeX();
       ball.removeY();
       score++;
+      explosion.trigger();
     }
 
     //
     if (matrice.isAllDestroy())
     {
       ball.setState(Ball.BALL_STATE_LOCKED);
+      spawn.trigger();
     }
     //
     labelPoints.setText("Points= "+score);
     labelLives.setText("Lives= "+lives);
 
     //gameover
-    if(lives <0)
+    if (lives <0)
     {
       StringDict msg= new StringDict();
-      
-      msg.set("SCORE",str(score));
-      
-      gStageManager.changeStage(new ConcluStage(),msg);
+
+      msg.set("SCORE", str(score));
+
+      gStageManager.changeStage(new ConcluStage(), msg);
     }
   }
 
@@ -128,8 +148,16 @@ class GameStage extends ez_Stage {
   }
 
   void onEnter(StringDict message) {
+    if (gameMusic!= null)
+    {
+      gameMusic.loop();
+    }
   }
 
   void onExit() {
+    if (gameMusic!= null)
+    {
+      gameMusic.close();
+    }
   }
 }

@@ -6,6 +6,8 @@ import ddf.minim.*;
 ez_StageManager gStageManager=null;
 ez_InputManager gInputManager=null;
 
+//minim
+Minim gMinim=null;
 
 float time=0;
 float now=0;
@@ -15,6 +17,8 @@ int fps=0;
 //
 void setup() {
   size(700, 500);
+  //
+  gMinim= new Minim(this); 
   // 
   gStageManager= new ez_StageManager();
   

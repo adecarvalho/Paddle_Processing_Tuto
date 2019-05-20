@@ -12,16 +12,14 @@ class GameStage extends ez_Stage {
   private int score;
   private int lives;
 
-  private ez_Label labelPoint=null;
-  private ez_Label labelLive=null;
+  private ez_Label labelPoints=null;
+  private ez_Label labelLives=null;
 
-
+  //
   GameStage() {
     super();
-    score=0;
-    lives=3;
 
-    bkg= new Background();
+    bkg= new Background(false);
 
     paddle= new Paddle(width/2, height-50, 300);
 
@@ -29,13 +27,17 @@ class GameStage extends ez_Stage {
 
     matrice= new Matrice();
 
-    labelPoint= new ez_Label("fonts/brick.ttf", 30);
-    labelPoint.setColorText(color(255, 161, 31));
-    labelPoint.setText("Points= "+score);
+    score=0;
+    lives=3;
 
-    labelLive= new ez_Label("fonts/brick.ttf", 30);
-    labelLive.setColorText(color(255,161, 31));
-    labelLive.setText("Lives= "+lives);
+    labelPoints= new ez_Label("fonts/brick.ttf", 30);
+    labelPoints.setColorText(color(255, 161, 31));
+    labelPoints.setText("Points= "+score);
+
+
+    labelLives= new ez_Label("fonts/brick.ttf", 30);
+    labelLives.setColorText(color(255, 161, 31));
+    labelLives.setText("Lives= "+lives);
   }
 
   void input() {
@@ -59,11 +61,6 @@ class GameStage extends ez_Stage {
     {
       ball.setMove();
     }
-  }
-
-  void setScore() {
-    labelPoint.setText("Points= "+score);
-    labelLive.setText("Lives= "+lives);
   }
 
   //
@@ -100,12 +97,23 @@ class GameStage extends ez_Stage {
     {
       ball.setState(Ball.BALL_STATE_LOCKED);
     }
-
     //
-    setScore();
+    labelPoints.setText("Points= "+score);
+    labelLives.setText("Lives= "+lives);
+
+    //gameover
+    if(lives <0)
+    {
+      StringDict msg= new StringDict();
+      
+      msg.set("SCORE",str(score));
+      
+      gStageManager.changeStage(new ConcluStage(),msg);
+    }
   }
 
 
+  //
   void render() {
     bkg.render();
 
@@ -115,10 +123,8 @@ class GameStage extends ez_Stage {
 
     matrice.render();
 
-
-    labelPoint.render(20, 20);
-    
-    labelLive.render(width-200,20);
+    labelPoints.render(20, 20);
+    labelLives.render(width-200, 20);
   }
 
   void onEnter(StringDict message) {

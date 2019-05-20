@@ -53,7 +53,7 @@ class Bloc extends ez_Entity {
     {
       super.render();
       
-      super.renderDebug();
+      //super.renderDebug();
     }
   }
 }

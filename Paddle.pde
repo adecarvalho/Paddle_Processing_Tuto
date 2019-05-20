@@ -45,6 +45,6 @@ class Paddle extends ez_Entity {
   void render() {
     super.render();
     
-    super.renderDebug();
+   // super.renderDebug();
   }
 }

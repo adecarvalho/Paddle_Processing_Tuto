@@ -1,5 +1,6 @@
 //import 
 import java.util.*;
+import ddf.minim.*;
 
 //ezLib
 ez_StageManager gStageManager=null;
@@ -14,14 +15,14 @@ int fps=0;
 //
 void setup() {
   size(700, 500);
-  //
+  // 
   gStageManager= new ez_StageManager();
   
   gStageManager.addStage(new GameStage());
+  //gStageManager.addStage(new ConcluStage());
   
   gInputManager= new ez_InputManager();
-  
-  
+
 }
 
 //
